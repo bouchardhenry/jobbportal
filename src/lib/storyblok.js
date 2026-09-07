@@ -1,5 +1,8 @@
 import Page from '@/components/Page';
 import JobList from '@/components/JobList';
+import Toolbar from '@/components/Toolbar';
+import DepartmentFilter from '@/components/DepartmentFilter';
+import SearchBar from '@/components/SearchBar';
 import { apiPlugin, storyblokInit } from '@storyblok/react/rsc';
 
 /**
@@ -20,6 +23,9 @@ export const getStoryblokApi = storyblokInit({
 	components: {
 		page: Page,
 		'job-list': JobList,
+		toolbar: Toolbar,
+		'department-filter': DepartmentFilter,
+		'search-bar': SearchBar,
 	},
 	apiOptions: {
 		/** Set the correct region for your space. Learn more: https://www.storyblok.com/docs/packages/storyblok-js#example-region-parameter */

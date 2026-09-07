@@ -129,8 +129,11 @@ footer {
 .toolbar {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 1rem;
+	align-items: flex-end;
+	gap: 1rem 1.5rem;
 	margin-bottom: 1.75rem;
+	padding-bottom: 1.5rem;
+	border-bottom: 1px solid var(--border);
 }
 
 .toolbar form {
@@ -139,21 +142,45 @@ footer {
 	align-items: center;
 }
 
+.toolbar__search {
+	flex: 1 1 320px;
+}
+
+.toolbar__search input[type='search'] {
+	flex: 1;
+}
+
+.toolbar__filter label {
+	font-size: 0.85rem;
+	color: var(--muted);
+}
+
 .toolbar select,
 .toolbar input[type='search'],
 .toolbar input[type='text'] {
-	padding: 0.45rem 0.6rem;
+	padding: 0.5rem 0.75rem;
 	border: 1px solid var(--border);
-	border-radius: 8px;
+	border-radius: 999px;
+	background: var(--card);
 	font: inherit;
 }
 
 .toolbar button {
-	padding: 0.45rem 0.9rem;
-	border: 1px solid var(--accent);
-	background: var(--accent);
+	padding: 0.5rem 1rem;
+	border: 1px solid #111;
+	background: #111;
 	color: #fff;
-	border-radius: 8px;
+	border-radius: 999px;
 	font: inherit;
 	cursor: pointer;
+}
+
+.toolbar button:hover {
+	opacity: 0.85;
+}
+
+.job-list__count {
+	margin: 0 0 1rem;
+	color: var(--muted);
+	font-size: 0.9rem;
 }
