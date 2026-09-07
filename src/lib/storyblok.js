@@ -1,17 +1,25 @@
 import Page from '@/components/Page';
-import Feature from '@/components/Feature';
-import Grid from '@/components/Grid';
-import Teaser from '@/components/Teaser';
+import JobList from '@/components/JobList';
 import { apiPlugin, storyblokInit } from '@storyblok/react/rsc';
+
+/**
+ * Vilken version av innehållet vi hämtar från Storyblok.
+ * - I utveckling: 'draft' så opublicerade ändringar syns direkt.
+ * - I produktion (Vercel): 'published' – bara publicerat innehåll.
+ */
+export const STORYBLOK_VERSION =
+	process.env.NODE_ENV === 'development' ? 'draft' : 'published';
 
 export const getStoryblokApi = storyblokInit({
 	accessToken: process.env.STORYBLOK_DELIVERY_API_TOKEN,
 	use: [apiPlugin],
+	/**
+	 * Kopplar Storybloks tekniska blocknamn till React-komponenter.
+	 * Nyckeln måste vara exakt samma som blockets namn i Storyblok.
+	 */
 	components: {
 		page: Page,
-		feature: Feature,
-		grid: Grid,
-		teaser: Teaser,
+		'job-list': JobList,
 	},
 	apiOptions: {
 		/** Set the correct region for your space. Learn more: https://www.storyblok.com/docs/packages/storyblok-js#example-region-parameter */
