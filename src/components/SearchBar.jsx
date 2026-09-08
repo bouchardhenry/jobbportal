@@ -4,13 +4,15 @@ import { storyblokEditable } from '@storyblok/react/rsc';
  * Fritextsök. GET-formulär som lägger ?q=... i URL:en.
  * `department` skickas med som dolt fält så att ett aktivt avdelningsfilter
  * behålls när man söker (filter + sök ska fungera samtidigt).
+ *
+ * Används i Hero-blocket. Kan även ligga som eget `search-bar`-block i en toolbar.
  */
-const SearchBar = ({ blok, department = '', q = '' }) => (
+const SearchBar = ({ blok = {}, department = '', q = '' }) => (
 	<form
 		method="get"
 		action="/jobs"
 		role="search"
-		className="toolbar__search"
+		className="searchbar"
 		{...storyblokEditable(blok)}
 	>
 		<input

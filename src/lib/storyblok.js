@@ -1,8 +1,14 @@
 import Page from '@/components/Page';
 import JobList from '@/components/JobList';
+import JobBoard from '@/components/JobBoard';
 import Toolbar from '@/components/Toolbar';
+import Hero from '@/components/Hero';
 import DepartmentFilter from '@/components/DepartmentFilter';
+import LocationFilter from '@/components/LocationFilter';
+import TypeFilter from '@/components/TypeFilter';
 import SearchBar from '@/components/SearchBar';
+import PopularCategories from '@/components/PopularCategories';
+import EmployerCta from '@/components/EmployerCta';
 import { apiPlugin, storyblokInit } from '@storyblok/react/rsc';
 
 /**
@@ -22,10 +28,16 @@ export const getStoryblokApi = storyblokInit({
 	 */
 	components: {
 		page: Page,
+		hero: Hero,
+		'job-board': JobBoard,
 		'job-list': JobList,
 		toolbar: Toolbar,
 		'department-filter': DepartmentFilter,
+		'location-filter': LocationFilter,
+		'type-filter': TypeFilter,
 		'search-bar': SearchBar,
+		'popular-categories': PopularCategories,
+		'employer-cta': EmployerCta,
 	},
 	apiOptions: {
 		/** Set the correct region for your space. Learn more: https://www.storyblok.com/docs/packages/storyblok-js#example-region-parameter */

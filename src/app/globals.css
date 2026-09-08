@@ -1,16 +1,33 @@
+/* =========================================================
+   Jobbportal – redesign ("paper / ink / signal")
+   Font: 42dot Sans (laddas via <link> i layout.js)
+   ========================================================= */
+
+:root {
+	--ink: #14171f;
+	--ink-soft: #3b4051;
+	--paper: #e8e6dc;
+	--paper-raised: #f1efe6;
+	--signal: #f2b705;
+	--signal-soft: rgba(242, 183, 5, 0.22);
+	--signal-deep: #8a5c00;
+	--line: rgba(20, 23, 31, 0.16);
+	--line-strong: rgba(20, 23, 31, 0.32);
+
+	--container: 1180px;
+	--pad: clamp(20px, 4vw, 32px);
+
+	--font: 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
 *,
 *::before,
 *::after {
 	box-sizing: border-box;
 }
 
-:root {
-	--bg: #f7f7f8;
-	--card: #ffffff;
-	--text: #1a1a1a;
-	--muted: #6b6b70;
-	--border: #e4e4e7;
-	--accent: #2f5bea;
+html {
+	scroll-behavior: smooth;
 }
 
 html,
@@ -20,104 +37,689 @@ body {
 }
 
 body {
-	background: var(--bg);
-	color: var(--text);
-	font-family:
-		system-ui,
-		-apple-system,
-		'Segoe UI',
-		Roboto,
-		sans-serif;
+	background: var(--paper);
+	color: var(--ink);
+	font-family: var(--font);
 	line-height: 1.6;
-}
-
-main {
-	max-width: 820px;
-	margin: 0 auto;
-	padding: 3rem 1.25rem 4rem;
+	overflow-x: hidden;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-size-adjust: 100%;
 }
 
 a {
-	color: var(--accent);
+	color: inherit;
 }
 
-footer {
-	max-width: 820px;
+img {
+	max-width: 100%;
+	display: block;
+}
+
+:focus-visible {
+	outline: 2px solid var(--signal-deep);
+	outline-offset: 2px;
+}
+
+/* ---------- Sidhuvud ---------- */
+.site-header {
+	position: sticky;
+	top: 0;
+	z-index: 20;
+	background: var(--paper);
+	border-bottom: 1px solid var(--line-strong);
+}
+
+.site-header__inner {
+	max-width: var(--container);
 	margin: 0 auto;
-	padding: 2rem 1.25rem;
-	color: var(--muted);
-	font-size: 0.85rem;
+	padding: 0 var(--pad);
+	min-height: 76px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 0.5rem 2rem;
 }
 
-/* ---------- Lista ---------- */
-.job-list h1 {
-	margin-bottom: 1.5rem;
+.site-header__logo {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	text-decoration: none;
+	padding: 12px 0;
+}
+
+.site-header__mark {
+	flex: none;
+	width: 38px;
+	height: 38px;
+	border-radius: 8px;
+}
+
+.site-header__word {
+	font-weight: 800;
+	font-size: clamp(20px, 4.5vw, 26px);
+	letter-spacing: 0.01em;
+	color: var(--ink);
+}
+
+.site-nav {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem 36px;
+}
+
+.site-nav a {
+	position: relative;
+	padding: 4px 0;
+	text-decoration: none;
+	font-size: 15px;
+	font-weight: 500;
+	color: var(--ink-soft);
+	white-space: nowrap;
+}
+
+.site-nav a:hover {
+	color: var(--ink);
+}
+
+.site-nav a[aria-current='page'] {
+	color: var(--ink);
+}
+
+.site-nav a[aria-current='page']::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -2px;
+	height: 2px;
+	background: var(--signal);
+}
+
+/* ---------- Innehållsyta ---------- */
+main {
+	max-width: var(--container);
+	margin: 0 auto;
+	padding: 0 var(--pad) 80px;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+	display: grid;
+	grid-template-columns: 1.05fr 1fr;
+	gap: 56px;
+	align-items: center;
+	padding: clamp(40px, 6vw, 72px) 0 clamp(40px, 5vw, 64px);
+}
+
+.hero__eyebrow {
+	display: inline-block;
+	margin-bottom: 22px;
+	padding: 4px 10px;
+	font-size: 13px;
+	color: var(--signal-deep);
+	background: var(--signal-soft);
+	border-radius: 3px;
+}
+
+.hero__title {
+	margin: 0 0 20px;
+	font-weight: 800;
+	font-size: clamp(40px, 5vw, 64px);
+	line-height: 1;
+	letter-spacing: -0.01em;
+}
+
+.hero__text {
+	margin: 0 0 34px;
+	max-width: 44ch;
+	font-size: 17px;
+	line-height: 1.6;
+	color: var(--ink-soft);
+}
+
+.hero__media {
+	position: relative;
+	height: 420px;
+	padding-left: 20px;
+}
+
+.hero__media::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 20px;
+	background-image: radial-gradient(
+		circle at 10px 0,
+		transparent 7px,
+		var(--paper) 7.5px
+	);
+	background-size: 20px 22px;
+	background-repeat: repeat-y;
+}
+
+.hero__media > * {
+	height: 100%;
+}
+
+.hero__media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 0 8px 8px 0;
+	border: 1.5px solid var(--ink);
+	border-left: none;
+}
+
+/* platshållar-ikon (ingen bild) */
+.hero__media svg {
+	width: 100%;
+	border: 1.5px solid var(--ink);
+	border-left: none;
+	border-radius: 0 8px 8px 0;
+	background: var(--paper-raised);
+	color: var(--line-strong);
+	padding: 40px;
+}
+
+.hero__media-tag {
+	position: absolute;
+	right: 18px;
+	bottom: 18px;
+	padding: 6px 10px;
+	font-size: 12.5px;
+	font-weight: 500;
+	color: var(--ink);
+	background: var(--signal);
+	border-radius: 3px;
+}
+
+/* ---------- Sökfält ("biljett") ---------- */
+.searchbar {
+	display: flex;
+	max-width: 520px;
+	background: var(--paper-raised);
+	border: 1.5px solid var(--ink);
+	border-radius: 6px;
+	overflow: hidden;
+}
+
+.searchbar input[type='search'] {
+	flex: 1;
+	min-width: 0;
+	border: none;
+	background: transparent;
+	padding: 16px 18px;
+	font: inherit;
+	font-size: 15px;
+	color: var(--ink);
+}
+
+.searchbar input[type='search']::placeholder {
+	color: #767a85;
+}
+
+.searchbar input[type='search']:focus {
+	outline: none;
+}
+
+.searchbar button {
+	flex: none;
+	border: none;
+	background: var(--ink);
+	color: var(--paper-raised);
+	font: inherit;
+	font-weight: 600;
+	font-size: 15px;
+	padding: 0 26px;
+	cursor: pointer;
+}
+
+.searchbar button:hover {
+	background: var(--ink-soft);
+}
+
+/* ---------- Board-layout ---------- */
+.job-board {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 300px;
+	gap: 48px;
+	align-items: start;
+	padding-bottom: 8px;
+}
+
+.job-board__content {
+	min-width: 0;
+}
+
+.job-board__aside {
+	display: grid;
+	gap: 22px;
+}
+
+/* ---------- Filterrad ---------- */
+.toolbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 14px;
+	padding-bottom: 18px;
+	margin-bottom: 8px;
+	border-bottom: 1px solid var(--line-strong);
+}
+
+.toolbar__filters {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.toolbar__filters form {
+	display: contents;
+}
+
+.toolbar select {
+	appearance: none;
+	display: inline-flex;
+	align-items: center;
+	border: 1px solid var(--line-strong);
+	background: var(--paper-raised)
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' fill='none' stroke='%233B4051' stroke-width='2.4' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")
+		no-repeat right 13px center;
+	padding: 9px 32px 9px 14px;
+	border-radius: 20px;
+	font: inherit;
+	font-size: 14px;
+	color: var(--ink-soft);
+	cursor: pointer;
+}
+
+.toolbar select:hover {
+	border-color: var(--ink);
+	color: var(--ink);
+}
+
+.sr-only,
+.toolbar__filter label {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+
+.toolbar__filter button[type='submit'] {
+	display: none;
+}
+
+/* ---------- Visa som: Kort / Lista ---------- */
+.view-toggle {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 13px;
+	color: var(--ink-soft);
+}
+
+.view-toggle__group {
+	display: inline-flex;
+	border: 1px solid var(--ink);
+	border-radius: 20px;
+	overflow: hidden;
+}
+
+.view-toggle__group a {
+	padding: 8px 16px;
+	font-size: 14px;
+	font-weight: 500;
+	text-decoration: none;
+	color: var(--ink-soft);
+	background: var(--paper-raised);
+}
+
+.view-toggle__group a[aria-current='true'] {
+	background: var(--ink);
+	color: var(--paper-raised);
+}
+
+/* ---------- Jobblista ("biljetter") ---------- */
+.job-list__count {
+	margin: 18px 0 14px;
+	font-size: 13px;
+	color: var(--ink-soft);
+	font-variant-numeric: tabular-nums;
 }
 
 .job-list__grid {
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	display: grid;
-	gap: 1rem;
+	border-top: 1px solid var(--line-strong);
 }
 
 .job-card {
-	background: var(--card);
-	border: 1px solid var(--border);
-	border-radius: 12px;
-	padding: 1.25rem 1.5rem;
+	position: relative;
+	display: grid;
+	grid-template-columns: 44px 84px minmax(0, 1fr) 18px;
+	gap: 22px;
+	align-items: center;
+	padding: 22px 4px;
+	border-bottom: 1px dashed var(--line-strong);
+}
+
+.job-card:hover {
+	background: rgba(20, 23, 31, 0.035);
+}
+
+.job-card__ref {
+	font-size: 13px;
+	color: var(--signal-deep);
+	font-variant-numeric: tabular-nums;
+}
+
+.job-card__media {
+	width: 84px;
+	height: 64px;
+	border-radius: 5px;
+	overflow: hidden;
+	border: 1px solid var(--line-strong);
+	background: var(--paper-raised);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--line-strong);
+}
+
+.job-card__media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.job-card__body {
+	min-width: 0;
 }
 
 .job-card__title {
-	margin: 0.4rem 0 0.5rem;
-	font-size: 1.15rem;
+	margin: 0 0 3px;
+	font-weight: 700;
+	font-size: 21px;
+	letter-spacing: 0.002em;
 }
 
 .job-card__title a {
 	text-decoration: none;
 }
 
-.job-card__title a:hover {
-	text-decoration: underline;
-}
-
-.job-card__summary {
-	margin: 0 0 0.5rem;
-	color: var(--text);
+.job-card__title a::after {
+	content: '';
+	position: absolute;
+	inset: 0;
 }
 
 .job-card__meta {
-	margin: 0;
-	color: var(--muted);
-	font-size: 0.9rem;
+	margin: 0 0 8px;
+	font-size: 13.5px;
+	color: var(--ink-soft);
+}
+
+.job-card__meta .dot {
+	margin: 0 7px;
+	opacity: 0.5;
+}
+
+.job-card__summary {
+	margin: 0 0 12px;
+	max-width: 56ch;
+	font-size: 14.5px;
+	line-height: 1.55;
+	color: var(--ink-soft);
+}
+
+.job-card__tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.tag {
+	padding: 3px 9px;
+	font-size: 12.5px;
+	border: 1px solid var(--line-strong);
+	border-radius: 3px;
+	color: var(--ink-soft);
+}
+
+.job-card__chevron {
+	justify-self: end;
+	color: var(--ink-soft);
+}
+
+.job-card:hover .job-card__chevron {
+	color: var(--ink);
+}
+
+/* Listvy – kompaktare, ingen bild/sammanfattning */
+.job-list--lista .job-card {
+	grid-template-columns: 44px minmax(0, 1fr) 18px;
+}
+
+.job-list--lista .job-card__media,
+.job-list--lista .job-card__summary {
+	display: none;
+}
+
+/* ---------- Sidopanel ---------- */
+.panel {
+	border: 1px solid var(--line-strong);
+	border-radius: 8px;
+	padding: 22px 24px;
+}
+
+.panel__heading {
+	margin: 0 0 4px;
+	font-weight: 600;
+	font-size: 15px;
+}
+
+.category-list {
+	list-style: none;
+	margin: 12px 0 0;
+	padding: 0;
+}
+
+.category-list li {
+	border-top: 1px solid var(--line);
+}
+
+.category-list a {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 11px 0;
+	text-decoration: none;
+	font-size: 14.5px;
+	color: var(--ink-soft);
+}
+
+.category-list a:hover {
+	color: var(--ink);
+}
+
+/* "Är du arbetsgivare?" – signalfärgad panel */
+.employer-cta {
+	border: none;
+	border-radius: 8px;
+	padding: 28px 24px;
+	background: var(--signal);
+	text-align: left;
+}
+
+.employer-cta__icon {
+	width: 26px;
+	height: 26px;
+	margin: 0 0 16px;
+	color: var(--ink);
+}
+
+.employer-cta__heading {
+	margin: 0 0 8px;
+	font-weight: 800;
+	font-size: 22px;
+}
+
+.employer-cta__text {
+	margin: 0 0 20px;
+	font-size: 14px;
+	line-height: 1.55;
+	color: var(--ink);
+	opacity: 0.82;
+}
+
+.employer-cta__button {
+	display: inline-block;
+	padding: 12px 22px;
+	background: var(--ink);
+	color: var(--paper-raised);
+	border-radius: 5px;
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 14.5px;
+}
+
+.employer-cta__button:hover {
+	background: var(--ink-soft);
+}
+
+/* ---------- Sidfot ---------- */
+.site-footer {
+	background: var(--ink);
+	color: var(--paper-raised);
+}
+
+.newsletter {
+	max-width: var(--container);
+	margin: 0 auto;
+	padding: 40px var(--pad);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 20px;
+	border-bottom: 1px solid rgba(232, 230, 220, 0.16);
+}
+
+.newsletter__icon {
+	width: 30px;
+	height: 30px;
+	flex: none;
+	color: rgba(232, 230, 220, 0.66);
+}
+
+.newsletter__body {
+	flex: 1 1 240px;
+}
+
+.newsletter__body strong {
+	display: block;
+	font-weight: 600;
+	font-size: 16px;
+}
+
+.newsletter__body p {
+	margin: 4px 0 0;
+	font-size: 13.5px;
+	color: rgba(232, 230, 220, 0.66);
+}
+
+.newsletter form {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.newsletter input[type='email'] {
+	min-width: 220px;
+	flex: 1 1 200px;
+	padding: 12px 14px;
+	border-radius: 5px;
+	border: 1px solid rgba(232, 230, 220, 0.28);
+	background: rgba(232, 230, 220, 0.08);
+	color: var(--paper-raised);
+	font: inherit;
+	font-size: 14px;
+}
+
+.newsletter input[type='email']::placeholder {
+	color: rgba(232, 230, 220, 0.5);
+}
+
+.newsletter button {
+	flex: none;
+	padding: 0 20px;
+	min-height: 42px;
+	border: none;
+	border-radius: 5px;
+	background: var(--signal);
+	color: var(--ink);
+	font: inherit;
+	font-weight: 600;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.newsletter button:hover {
+	filter: brightness(0.95);
+}
+
+.site-copyright {
+	max-width: var(--container);
+	margin: 0 auto;
+	padding: 22px var(--pad);
+	font-size: 12.5px;
+	color: rgba(232, 230, 220, 0.5);
+}
+
+/* ---------- Detaljsida ---------- */
+.job-detail {
+	max-width: 720px;
+	margin: 0 auto;
+	padding-top: clamp(32px, 5vw, 56px);
 }
 
 .job-card__dept {
 	display: inline-block;
-	font-size: 0.75rem;
+	font-size: 12.5px;
 	font-weight: 600;
-	text-transform: uppercase;
-	letter-spacing: 0.04em;
-	color: var(--accent);
-	background: #eef2ff;
-	border-radius: 999px;
-	padding: 0.2rem 0.6rem;
+	color: var(--signal-deep);
+	background: var(--signal-soft);
+	border-radius: 3px;
+	padding: 3px 9px;
 }
 
-/* ---------- Detaljsida ---------- */
 .job-detail h1 {
 	margin: 0.6rem 0 0.3rem;
+	font-weight: 800;
+	font-size: clamp(28px, 4vw, 40px);
+	line-height: 1.05;
 }
 
 .job-detail__meta {
 	margin: 0;
-	color: var(--muted);
+	color: var(--ink-soft);
 }
 
 .job-detail__summary {
 	font-size: 1.1rem;
 	margin: 1rem 0 2rem;
+	color: var(--ink-soft);
 }
 
 .job-detail__body h2,
@@ -125,62 +727,125 @@ footer {
 	margin-top: 1.75rem;
 }
 
-/* ---------- Toolbar (VG) ---------- */
-.toolbar {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: flex-end;
-	gap: 1rem 1.5rem;
-	margin-bottom: 1.75rem;
-	padding-bottom: 1.5rem;
-	border-bottom: 1px solid var(--border);
+/* =========================================================
+   Responsivt
+   ========================================================= */
+
+@media (max-width: 1024px) {
+	.job-board {
+		grid-template-columns: minmax(0, 1fr) 260px;
+		gap: 36px;
+	}
+
+	.hero {
+		gap: 40px;
+	}
 }
 
-.toolbar form {
-	display: flex;
-	gap: 0.5rem;
-	align-items: center;
+@media (max-width: 900px) {
+	.hero {
+		grid-template-columns: 1fr;
+		gap: 32px;
+	}
+
+	.hero__text {
+		max-width: none;
+	}
+
+	.hero__media {
+		order: -1;
+		height: 240px;
+		padding-left: 16px;
+	}
+
+	.job-board {
+		grid-template-columns: 1fr;
+		gap: 40px;
+	}
+
+	.job-board__aside {
+		grid-template-columns: 1fr 1fr;
+		align-items: start;
+	}
+
+	.employer-cta {
+		grid-column: 1 / -1;
+	}
 }
 
-.toolbar__search {
-	flex: 1 1 320px;
+@media (max-width: 620px) {
+	.toolbar {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.toolbar__filters {
+		flex-direction: column;
+	}
+
+	.toolbar select {
+		width: 100%;
+	}
+
+	.view-toggle {
+		justify-content: space-between;
+	}
+
+	.job-board__aside {
+		grid-template-columns: 1fr;
+	}
+
+	.job-card {
+		grid-template-columns: 40px 64px minmax(0, 1fr);
+		gap: 14px;
+		row-gap: 6px;
+	}
+
+	.job-card__chevron {
+		display: none;
+	}
+
+	.job-list--lista .job-card {
+		grid-template-columns: 40px minmax(0, 1fr);
+	}
 }
 
-.toolbar__search input[type='search'] {
-	flex: 1;
+@media (max-width: 460px) {
+	.job-card {
+		grid-template-columns: 1fr;
+	}
+
+	.job-card__ref {
+		display: none;
+	}
+
+	.job-card__media {
+		width: 100%;
+		height: auto;
+		aspect-ratio: 16 / 9;
+	}
+
+	.searchbar {
+		flex-wrap: wrap;
+	}
+
+	.searchbar input[type='search'] {
+		flex: 1 1 100%;
+	}
+
+	.searchbar button {
+		flex: 1 1 100%;
+		padding: 12px 26px;
+	}
 }
 
-.toolbar__filter label {
-	font-size: 0.85rem;
-	color: var(--muted);
-}
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
 
-.toolbar select,
-.toolbar input[type='search'],
-.toolbar input[type='text'] {
-	padding: 0.5rem 0.75rem;
-	border: 1px solid var(--border);
-	border-radius: 999px;
-	background: var(--card);
-	font: inherit;
-}
-
-.toolbar button {
-	padding: 0.5rem 1rem;
-	border: 1px solid #111;
-	background: #111;
-	color: #fff;
-	border-radius: 999px;
-	font: inherit;
-	cursor: pointer;
-}
-
-.toolbar button:hover {
-	opacity: 0.85;
-}
-
-.job-list__count {
-	margin: 0 0 1rem;
-	color: var(--muted);
-	font-size: 0.9rem;
+	* {
+		animation-duration: 0.01ms !important;
+		transition-duration: 0.01ms !important;
+	}
 }

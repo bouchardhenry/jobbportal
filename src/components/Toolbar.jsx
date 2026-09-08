@@ -2,21 +2,39 @@ import {
 	storyblokEditable,
 	StoryblokServerComponent,
 } from '@storyblok/react/rsc';
+import ViewToggle from '@/components/ViewToggle';
 
 /**
- * Toolbar är en behållare (Nestable block) som ligger på jobs/index ovanför
- * job-list. Den renderar sina inre block (department-filter, search-bar) och
- * skickar vidare department/q så att formulären kan förifyllas.
+ * Toolbar ligger ovanför job-list. Vänster: filterblocken (department-filter,
+ * location-filter, type-filter) som redaktören lägger i fältet `items`.
+ * Höger: "Visa som: Kort / Lista" (alltid med, ej ett Storyblok-block).
+ *
+ * Aktiva värden (department/q/ort/typ/view) kommer via props och skickas vidare
+ * till varje filter så att de kan förifyllas.
  */
-const Toolbar = ({ blok, ...restProps }) => (
+const Toolbar = ({
+	blok,
+	department = '',
+	q = '',
+	ort = '',
+	typ = '',
+	view = 'kort',
+}) => (
 	<div className="toolbar" {...storyblokEditable(blok)}>
-		{blok.items?.map((nestedBlok) => (
-			<StoryblokServerComponent
-				blok={nestedBlok}
-				key={nestedBlok._uid}
-				{...restProps}
-			/>
-		))}
+		<div className="toolbar__filters">
+			{blok.items?.map((nestedBlok) => (
+				<StoryblokServerComponent
+					blok={nestedBlok}
+					key={nestedBlok._uid}
+					department={department}
+					q={q}
+					ort={ort}
+					typ={typ}
+				/>
+			))}
+		</div>
+
+		<ViewToggle view={view} params={{ department, q, ort, typ }} />
 	</div>
 );
 

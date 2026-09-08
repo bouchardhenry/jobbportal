@@ -8,17 +8,22 @@ export const metadata = {
 /**
  * Listvyn /jobs.
  * Sidan gör bara två saker:
- *  1. läser filter/sök ur URL:en (searchParams)
- *  2. hämtar "index"-storyn för mappen jobs/ och lämnar renderingen till Storyblok
+ *  1. läser filter/sök/vy ur URL:en (searchParams)
+ *  2. hämtar "jobs"-storyn och lämnar renderingen till Storyblok
  *
- * Storyns body innehåller toolbar + job-list. Inga formulär eller listmarkup här –
- * department/q skickas som props ner genom Page -> Toolbar / JobList.
+ * Storyns body innehåller hero + job-board (toolbar, job-list, sidopanel).
+ * Alla värden nedan skickas som props genom Page -> blocken.
  */
 export default async function JobsPage({ searchParams }) {
 	// searchParams är en Promise i Next 16
 	const sp = await searchParams;
-	const department = typeof sp.department === 'string' ? sp.department : '';
-	const q = typeof sp.q === 'string' ? sp.q : '';
+	const str = (value) => (typeof value === 'string' ? value : '');
+
+	const department = str(sp.department);
+	const q = str(sp.q);
+	const ort = str(sp.ort);
+	const typ = str(sp.typ);
+	const view = sp.view === 'lista' ? 'lista' : 'kort';
 
 	const storyblokApi = getStoryblokApi();
 	const { data } = await storyblokApi.get('cdn/stories/jobs', {
@@ -26,6 +31,13 @@ export default async function JobsPage({ searchParams }) {
 	});
 
 	return (
-		<StoryblokStory story={data.story} department={department} q={q} />
+		<StoryblokStory
+			story={data.story}
+			department={department}
+			q={q}
+			ort={ort}
+			typ={typ}
+			view={view}
+		/>
 	);
 }
