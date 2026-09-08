@@ -1,13 +1,21 @@
 import { storyblokEditable } from '@storyblok/react/rsc';
+import HiddenParams from '@/components/HiddenParams';
 
 /**
  * Fritextsök. GET-formulär som lägger ?q=... i URL:en.
- * `department` skickas med som dolt fält så att ett aktivt avdelningsfilter
- * behålls när man söker (filter + sök ska fungera samtidigt).
+ * Aktiva filter (department/ort/typ/view) skickas med som dolda fält så att en
+ * sökning inte nollställer dem.
  *
  * Används i Hero-blocket. Kan även ligga som eget `search-bar`-block i en toolbar.
  */
-const SearchBar = ({ blok = {}, department = '', q = '' }) => (
+const SearchBar = ({
+	blok = {},
+	department = '',
+	q = '',
+	ort = '',
+	typ = '',
+	view = '',
+}) => (
 	<form
 		method="get"
 		action="/jobs"
@@ -23,10 +31,14 @@ const SearchBar = ({ blok = {}, department = '', q = '' }) => (
 			aria-label="Sök jobb"
 		/>
 
-		{/* Behåll aktivt avdelningsfilter vid sökning */}
-		{department ? (
-			<input type="hidden" name="department" value={department} />
-		) : null}
+		{/* Behåll aktiva filter vid sökning */}
+		<HiddenParams
+			except="q"
+			department={department}
+			ort={ort}
+			typ={typ}
+			view={view}
+		/>
 
 		<button type="submit">Sök jobb</button>
 	</form>

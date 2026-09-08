@@ -1,6 +1,10 @@
 import Link from 'next/link';
 import { storyblokEditable } from '@storyblok/react/rsc';
-import { getStoryblokApi, STORYBLOK_VERSION } from '@/lib/storyblok';
+import {
+	getStoryblokApi,
+	getJobDepartments,
+	STORYBLOK_VERSION,
+} from '@/lib/storyblok';
 
 /**
  * JobList är ett Storyblok-block (Nestable). Det hämtar OCH renderar listan.
@@ -59,11 +63,11 @@ const JobList = async ({
 	const jobs = data.stories;
 
 	// Läsbara avdelningsnamn ("utveckling" -> "Utveckling") från datasourcen.
-	const { data: dsData } = await storyblokApi.get('cdn/datasource_entries', {
-		datasource: 'job-departments',
-	});
+	// getJobDepartments() är cache():ad – delas med department-filter och
+	// popular-categories inom samma render.
+	const departmentEntries = await getJobDepartments();
 	const departmentNames = Object.fromEntries(
-		dsData.datasource_entries.map((entry) => [entry.value, entry.name]),
+		departmentEntries.map((entry) => [entry.value, entry.name]),
 	);
 
 	const isFiltered = Boolean(department || q || ort || typ);

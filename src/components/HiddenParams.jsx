@@ -6,7 +6,9 @@
  * sökterm försvinna när man byter avdelning.
  */
 const HiddenParams = ({ except, department = '', q = '', ort = '', typ = '', view = '' }) => {
-	const all = { department, q, ort, typ, view };
+	// view=kort är standardläget – bär bara med parametern när den avviker (lista),
+	// så URL:erna hålls rena.
+	const all = { department, q, ort, typ, view: view === 'kort' ? '' : view };
 	return (
 		<>
 			{Object.entries(all)

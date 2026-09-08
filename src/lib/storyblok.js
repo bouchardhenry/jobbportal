@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import Page from '@/components/Page';
 import JobList from '@/components/JobList';
 import JobBoard from '@/components/JobBoard';
@@ -47,4 +48,16 @@ export const getStoryblokApi = storyblokInit({
 			? `${new URL(process.env.STORYBLOK_API_BASE_URL).origin}/v2`
 			: undefined,
 	},
+});
+
+/**
+ * Datakällan `job-departments` behövs av flera block per sidladdning
+ * (department-filter, popular-categories, job-list). cache() ser till att
+ * anropet bara görs en gång per render istället för tre.
+ */
+export const getJobDepartments = cache(async () => {
+	const { data } = await getStoryblokApi().get('cdn/datasource_entries', {
+		datasource: 'job-departments',
+	});
+	return data.datasource_entries;
 });

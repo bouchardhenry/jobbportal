@@ -37,7 +37,12 @@ const TypeFilter = ({
 			{...storyblokEditable(blok)}
 		>
 			<label htmlFor="type-select">{label}</label>
-			<AutoSubmitSelect name="typ" defaultValue={typ} ariaLabel={label}>
+			<AutoSubmitSelect
+				id="type-select"
+				name="typ"
+				defaultValue={typ}
+				ariaLabel={label}
+			>
 				<option value="">{label}</option>
 				{options.map((option) => (
 					<option key={option} value={option}>

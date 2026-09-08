@@ -43,7 +43,12 @@ const LocationFilter = async ({
 			{...storyblokEditable(blok)}
 		>
 			<label htmlFor="location-select">{label}</label>
-			<AutoSubmitSelect name="ort" defaultValue={ort} ariaLabel={label}>
+			<AutoSubmitSelect
+				id="location-select"
+				name="ort"
+				defaultValue={ort}
+				ariaLabel={label}
+			>
 				<option value="">{label}</option>
 				{locations.map((location) => (
 					<option key={location} value={location}>

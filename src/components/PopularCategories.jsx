@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { storyblokEditable } from '@storyblok/react/rsc';
-import { getStoryblokApi } from '@/lib/storyblok';
+import { getJobDepartments } from '@/lib/storyblok';
 
 /**
  * Sidopanel "Populära kategorier". Listan byggs från datakällan
@@ -12,13 +12,9 @@ import { getStoryblokApi } from '@/lib/storyblok';
  *  - limit   (Number) hur många som visas (valfri, default 5)
  */
 const PopularCategories = async ({ blok }) => {
-	const storyblokApi = getStoryblokApi();
-	const { data } = await storyblokApi.get('cdn/datasource_entries', {
-		datasource: 'job-departments',
-	});
-
+	const all = await getJobDepartments();
 	const limit = Number(blok.limit) > 0 ? Number(blok.limit) : 5;
-	const entries = data.datasource_entries.slice(0, limit);
+	const entries = all.slice(0, limit);
 
 	return (
 		<section className="panel" {...storyblokEditable(blok)}>

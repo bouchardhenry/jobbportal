@@ -1,8 +1,12 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 /**
  * Global sidhuvud – logotyp (JP-märke + ordbild) och huvudnavigation.
  * Statiskt "chrome" runt allt innehåll (ligger i layout.js). Klistrig topp.
+ * Klientkomponent enbart för att kunna markera aktiv route (usePathname).
  */
 const NAV = [
 	{ label: 'Hem', href: '/' },
@@ -12,6 +16,12 @@ const NAV = [
 ];
 
 export default function SiteHeader() {
+	const pathname = usePathname();
+	const isActive = (href) =>
+		href === '/'
+			? pathname === '/'
+			: pathname === href || pathname.startsWith(`${href}/`);
+
 	return (
 		<header className="site-header">
 			<div className="site-header__inner">
@@ -30,7 +40,7 @@ export default function SiteHeader() {
 						<Link
 							key={item.href}
 							href={item.href}
-							aria-current={item.href === '/jobs' ? 'page' : undefined}
+							aria-current={isActive(item.href) ? 'page' : undefined}
 						>
 							{item.label}
 						</Link>

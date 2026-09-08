@@ -30,6 +30,7 @@ const Toolbar = ({
 					q={q}
 					ort={ort}
 					typ={typ}
+					view={view}
 				/>
 			))}
 		</div>

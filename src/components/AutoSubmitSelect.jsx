@@ -7,6 +7,7 @@
  * Utan JS fungerar den dolda submit-knappen i formuläret som reserv.
  */
 export default function AutoSubmitSelect({
+	id,
 	name,
 	defaultValue,
 	ariaLabel,
@@ -14,10 +15,15 @@ export default function AutoSubmitSelect({
 }) {
 	return (
 		<select
+			id={id}
 			name={name}
 			defaultValue={defaultValue}
 			aria-label={ariaLabel}
-			onChange={(event) => event.currentTarget.form.requestSubmit()}
+			onChange={(event) => {
+				const form = event.currentTarget.form;
+				if (form?.requestSubmit) form.requestSubmit();
+				else form?.submit();
+			}}
 		>
 			{children}
 		</select>

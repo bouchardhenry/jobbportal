@@ -1,5 +1,5 @@
 import { storyblokEditable } from '@storyblok/react/rsc';
-import { getStoryblokApi } from '@/lib/storyblok';
+import { getJobDepartments } from '@/lib/storyblok';
 import HiddenParams from '@/components/HiddenParams';
 import AutoSubmitSelect from '@/components/AutoSubmitSelect';
 
@@ -18,11 +18,7 @@ const DepartmentFilter = async ({
 	typ = '',
 	view = '',
 }) => {
-	const storyblokApi = getStoryblokApi();
-	const { data } = await storyblokApi.get('cdn/datasource_entries', {
-		datasource: 'job-departments',
-	});
-	const entries = data.datasource_entries;
+	const entries = await getJobDepartments();
 	const label = blok.label || 'Kategori';
 
 	return (
@@ -34,6 +30,7 @@ const DepartmentFilter = async ({
 		>
 			<label htmlFor="department-select">{label}</label>
 			<AutoSubmitSelect
+				id="department-select"
 				name="department"
 				defaultValue={department}
 				ariaLabel={label}

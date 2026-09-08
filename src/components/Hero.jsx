@@ -13,7 +13,7 @@ import SearchBar from '@/components/SearchBar';
  *  - imageTag          (Text)      liten tagg nere i högra hörnet av bilden
  *  - searchPlaceholder (Text)      placeholder i sökfältet
  */
-const Hero = ({ blok, q = '', department = '' }) => (
+const Hero = ({ blok, q = '', department = '', ort = '', typ = '', view = '' }) => (
 	<section className="hero" {...storyblokEditable(blok)}>
 		<div className="hero__body">
 			{blok.eyebrow ? (
@@ -31,6 +31,9 @@ const Hero = ({ blok, q = '', department = '' }) => (
 				blok={{ placeholder: blok.searchPlaceholder }}
 				q={q}
 				department={department}
+				ort={ort}
+				typ={typ}
+				view={view}
 			/>
 		</div>
 
